@@ -70,10 +70,10 @@ $(function() {
          * I used jQuery selector and hasClass to interact with HTML/CSS
          */
         it('Menu hidden by default', function () {
-            expect($('body').hasClass('hiden-menu')).toBeTruthy();
+            expect($('body').hasClass('menu-hidden')).toBeTruthy();
         });
 
-        /* TODO: Write a test that ensures the menu changes
+        /* Write a test that ensures the menu changes
          * visibility when the menu icon is clicked. This test
          * should have two expectations: does the menu display when
          * clicked and does it hide when clicked again.
