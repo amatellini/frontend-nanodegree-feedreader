@@ -78,21 +78,64 @@ $(function() {
          * should have two expectations: does the menu display when
          * clicked and does it hide when clicked again.
          */
+        it('Menu change visibility', function () {
+            $('.menu-icon-link').click();
+            expect($('body').hasClass('menu-hidden')).toBeFalsy();
+            $('.menu-icon-link').click();
+            expect($('body').hasClass('menu-hidden')).toBeTruthy();
+        });
     });
 
-    /* TODO: Write a new test suite named "Initial Entries" */
+    /* Write a new test suite named "Initial Entries" */
+    describe('Initial Entries', function () {
 
-        /* TODO: Write a test that ensures when the loadFeed
+        beforeEach(function (done) {
+            loadFeed(0, done);
+        });
+
+        /* Write a test that ensures when the loadFeed
          * function is called and completes its work, there is at least
          * a single .entry element within the .feed container.
          * Remember, loadFeed() is asynchronous so this test will require
          * the use of Jasmine's beforeEach and asynchronous done() function.
          */
+        it('loadFeed load at least one element', function (done) {
+            expect($('.feed').find('.entry').length).not.toBe(0);
+            done();
+        });
+    });
 
-    /* TODO: Write a new test suite named "New Feed Selection" */
+    /* Write a new test suite named "New Feed Selection" */
+    describe('New Feed Selection', function () {
 
-        /* TODO: Write a test that ensures when a new feed is loaded
+        var oldContent;
+        var newContent;
+
+        beforeEach(function (done) { 
+            loadFeed(0, function () {
+                oldContent = $('.feed').html();
+
+                loadFeed(1, function () {
+                    newContent = $('.feed').html();
+                    done();
+                });
+            });
+        });
+        
+        /* Write a test that ensures when a new feed is loaded
          * by the loadFeed function that the content actually changes.
          * Remember, loadFeed() is asynchronous.
          */
+
+        /*
+         * Note
+         *
+         * If you get "Async callback was not invoked within timeout specified by jasmine.DEFAULT_TIMEOUT_INTERVAL" error,
+         * stop your background downloads :)
+         */
+        it('content change after loading feeds', function (done) {
+            expect(oldContent).not.toBe(newContent);
+            done();
+        });
+    });
 }());
